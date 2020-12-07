@@ -1,0 +1,25 @@
+FROM node:15.3.0-alpine3.10 as builder
+
+WORKDIR /app
+
+ENV PATH /app/node_modules/.bin:$PATH
+RUN apk add --no-cache python make g++;
+
+COPY src/app-react/package.json /app/package.json
+
+RUN yarn install;
+
+COPY src/app-react /app
+
+RUN yarn build
+
+# production environment
+FROM nginx:1.19.5-alpine
+COPY --from=builder /app/build /usr/share/nginx/html
+
+RUN rm /etc/nginx/conf.d/default.conf
+COPY config/nginx/nginx.conf /etc/nginx/conf.d
+
+EXPOSE 80
+EXPOSE 443
+CMD ["nginx", "-g", "daemon off;"]
