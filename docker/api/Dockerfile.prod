@@ -1,0 +1,18 @@
+FROM node:15.3.0-alpine3.10 as builder
+
+WORKDIR /app
+
+RUN apk add --no-cache python make g++;
+
+COPY src/back-end/package-lock.json src/api/package.json /app/
+
+RUN yarn global add @nestjs/cli;
+
+RUN npm ci;
+
+COPY src/back-end /app
+
+RUN yarn build;
+
+EXPOSE 4000
+CMD ["node", "dist/main"]
