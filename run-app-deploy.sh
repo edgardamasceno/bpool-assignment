@@ -4,7 +4,7 @@ if [ $1 == "--dev" ]; then
     echo "Desconstruindo containers, caso existam..."
     docker-compose -f docker-compose.dev.yml down
     echo "Construindo containers de desenvolvimento..."
-    docker-compose -p bpool -f docker-compose.dev.yml up --build
+    docker-compose -p bpool_dev -f docker-compose.dev.yml up --build
 fi
 
 # if [ $1 == "--prod" ]; then

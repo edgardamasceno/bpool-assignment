@@ -1,0 +1,18 @@
+.root {
+  padding: 0 24px;
+  span {
+    svg {
+      path {
+        fill: #c2c2c2;
+        transition: fill 500ms ease-in-out;
+      }
+    }
+    &:hover {
+      svg {
+        path {
+          fill: #001529;
+        }
+      }
+    }
+  }
+}

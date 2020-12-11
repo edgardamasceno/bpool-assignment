@@ -1,0 +1,11 @@
+@import "./reset";
+
+#root {
+  min-height: 100%;
+}
+
+.flex-wh-centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
