@@ -1,5 +1,6 @@
 import React from 'react';
-import { useStatus, useSelected } from '../../contexts/ContactContext';
+import { Alert } from 'antd';
+import { useStatus, useSelected, useErrorList } from '../../contexts/ContactContext';
 import moment from 'moment';
 
 import {
@@ -17,6 +18,7 @@ interface Props {
 const ContactModal: React.FC<Props> = ({ data }) => {
   const { status, setStatus } = useStatus();
   const { selected, setSelected } = useSelected();
+  const { errorList } = useErrorList();
 
   return <Modal
     title={`${data ? 'Editar' : 'Adicionar'} Contato`}
@@ -49,7 +51,7 @@ const ContactModal: React.FC<Props> = ({ data }) => {
       <Form.Item label="E-mail">
         <Input type="email" disabled={status === 'view' ? true : false} value={selected ? selected.email : ''} />
       </Form.Item>
-      <Form.Item label="Data Nascimento">
+      <Form.Item label="Data Nasc.">
         <DatePicker format="DD/MM/YYYY" disabled={status === 'view' ? true : false} defaultValue={selected ? moment(selected.birth) : moment(new Date())} />
       </Form.Item>
       <Form.Item label="Profissão">
@@ -61,6 +63,21 @@ const ContactModal: React.FC<Props> = ({ data }) => {
         </Select>
       </Form.Item>
     </Form>
+    {
+      errorList.map((message, index: number) => {
+        return (
+          <Alert
+            style={{marginTop:'5px'}}
+            key={index}
+            message={message}
+            type="error"
+            showIcon
+            closable
+          />
+        )
+      })
+    }
+
   </Modal>;
 }
 
