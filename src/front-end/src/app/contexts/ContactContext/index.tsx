@@ -13,6 +13,8 @@ export type ContactContextType = {
   setSelected: React.Dispatch<React.SetStateAction<Contact | null>>;
   data: any[];
   columns: any[];
+  errorList: String[];
+  setErrorList: React.Dispatch<React.SetStateAction<Array<String> | []>>;
 }
 
 const DEFAULT_VALUE: ContactContextType = {
@@ -22,6 +24,8 @@ const DEFAULT_VALUE: ContactContextType = {
   setSelected: () => { },
   data: [],
   columns: [],
+  errorList: [],
+  setErrorList: () => { }
 }
 
 const Link = styled.span`
@@ -40,26 +44,7 @@ export const ContactContext = createContext<ContactContextType>(DEFAULT_VALUE);
 export const ContactContextProvider: React.FC = ({ children }) => {
   const [status, setStatus] = useState<StatusType>(DEFAULT_VALUE.status);
   const [selected, setSelected] = useState<Contact | null>(null);
-  function showDeleteConfirm() {
-    confirm({
-      title: 'Tem certeza que deseja remover este contato?',
-      icon: <ExclamationCircleOutlined />,
-      content: 'Esta ação não poderá ser desfeita',
-      okText: 'Sim, remover',
-      okType: 'danger',
-      cancelText: 'Não',
-      width: 720,
-      centered: true,
-      onOk() {
-        setSelected(null);
-        setStatus(null);
-      },
-      onCancel() {
-        setSelected(null);
-        setStatus(null);
-      },
-    });
-  }
+  const [errorList, setErrorList] = useState<Array<String>>(['Erro 1', 'Erro 2', 'Erro 3']);
   const [columns] = useState<Array<any>>(
     [
       {
@@ -144,13 +129,37 @@ export const ContactContextProvider: React.FC = ({ children }) => {
         occupation: 'Analista Sistemas'
       }
     ]);
+
+  function showDeleteConfirm() {
+    confirm({
+      title: 'Tem certeza que deseja remover este contato?',
+      icon: <ExclamationCircleOutlined />,
+      content: 'Esta ação não poderá ser desfeita',
+      okText: 'Sim, remover',
+      okType: 'danger',
+      cancelText: 'Não',
+      width: 720,
+      centered: true,
+      onOk() {
+        setSelected(null);
+        setStatus(null);
+      },
+      onCancel() {
+        setSelected(null);
+        setStatus(null);
+      },
+    });
+  }
+
+
   return (
-    <ContactContext.Provider value={{ status, setStatus, selected, setSelected, columns, data }}>
+    <ContactContext.Provider value={{ status, setStatus, selected, setSelected, columns, data, errorList, setErrorList }}>
       {children}
     </ContactContext.Provider>
   );
-
 }
+
+
 
 export function useStatus() {
   const context = useContext(ContactContext);
@@ -168,6 +177,12 @@ export function useSelected() {
   const context = useContext(ContactContext);
   const { selected, setSelected } = context;
   return { selected, setSelected };
+}
+
+export function useErrorList() {
+  const context = useContext(ContactContext);
+  const { errorList, setErrorList } = context;
+  return { errorList, setErrorList };
 }
 
 export default ContactContext;
