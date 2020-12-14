@@ -36,5 +36,5 @@ export class CreateContactDto {
 }
 
 export class UpdateContactDto extends CreateContactDto{
-  readonly id: string;
+  readonly _id: string;
 }

@@ -54,8 +54,11 @@ export class ContactService {
     id: string,
     updateContactDto: UpdateContactDto,
   ): Promise<Contact> {
+    console.log(updateContactDto._id, id, updateContactDto._id === id);
+
     try {
-      if (updateContactDto.id === id) {
+      if (updateContactDto._id === id) {
+        console.log(updateContactDto._id, id, updateContactDto._id === id);
         const contact = await this.contactModel.findById(id).exec();
         if (contact) {
           const updatedContact = await this.contactModel
