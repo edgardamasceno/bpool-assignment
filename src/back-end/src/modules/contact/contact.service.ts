@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { ForbiddenException, Injectable, MethodNotAllowedException, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { exception } from 'console';
 import { Model } from 'mongoose';
@@ -55,17 +55,19 @@ export class ContactService {
     updateContactDto: UpdateContactDto,
   ): Promise<Contact> {
     try {
-      const updatedContact = await this.contactModel
-        .findByIdAndUpdate(id, updateContactDto)
-        .exec();
-
-      if (updatedContact === null) {
+      if (updateContactDto.id === id) {
+        const contact = await this.contactModel.findById(id).exec();
+        if (contact) {
+          const updatedContact = await this.contactModel
+            .updateOne(updateContactDto)
+            .exec();
+          return updateContactDto;
+        }
         throw new NotFoundException(
           'Operação cancelada. Contato não localizado.',
         );
-      } else {
-        return updatedContact;
       }
+      throw new ForbiddenException('Operação cancelada. O campo _ID é imutável.');
     } catch (error) {
       throw error;
     }
@@ -73,15 +75,16 @@ export class ContactService {
 
   async deleteContact(id: string) {
     try {
-      const deletedContact = await this.contactModel
-        .findOneAndDelete({ _id: id })
-        .exec();
-      if (deletedContact === null) {
+      const contact = await this.contactModel.findById(id).exec();
+      if (contact === null) {
         throw new NotFoundException(
           'Operação cancelada. Contato não localizado.',
         );
       } else {
-        return deletedContact.remove();
+        const deletedContact = await this.contactModel
+          .deleteOne({ _id: id })
+          .exec();
+        return contact;
       }
     } catch (error) {
       throw error;
