@@ -77,6 +77,8 @@ Para testar a API utilizei o software [Insomnia](https://insomnia.rest/download/
 
 > Operação cancelada. Contato não localizado.
 
+> Operação cancelada. O campo _ID é imutável.
+
 ## TODO
 
 - [x] Criar boilerplate (front-end e back-end)
