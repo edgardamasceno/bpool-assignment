@@ -14,6 +14,7 @@ services:
       - '3000:3000'
     depends_on:
       - api
+    restart: unless-stopped
     stdin_open: true
   api:
     build:
@@ -21,8 +22,6 @@ services:
       dockerfile: ./docker/api/Dockerfile
     env_file:
       - dev.env
-    environment:
-      API_DATABASE_HOST: database
     volumes:
       - './src/back-end/:/app'
       - '/app/node_modules'
@@ -30,8 +29,15 @@ services:
       - '4000:4000'
     depends_on:
       - database
+    restart: unless-stopped
     stdin_open: true
   database:
     image: mongo:4.4.2-bionic
-    restart: unless-stopped
     env_file: dev.env
+    volumes:
+      - ./data/dev/mongo:/data/db
+    ports:
+      - '27017:27017'
+    restart: unless-stopped
+    stdin_open: true
+
