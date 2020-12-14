@@ -1,6 +1,8 @@
 #!/bin/bash
 if [ $1 == "--dev" ]; then
     echo "Iniciando ambiente de desenvolvimento..."
+    echo "Alterando permissões da pasta 'data'..."
+    sudo chown -R $USER ./data
     echo "Desconstruindo containers, caso existam..."
     docker-compose -f docker-compose.dev.yml down
     echo "Construindo containers de desenvolvimento..."
