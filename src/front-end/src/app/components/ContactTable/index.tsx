@@ -6,7 +6,7 @@ import styles from './styles.module.scss';
 
 const ContactTable: React.FC = () => {
   const { data, columns } = useData();
-  return <Table columns={columns} dataSource={data} className={styles.root} pagination={false} />;
+  return <Table columns={columns} dataSource={data} className={styles.root} pagination={false} rowKey='_id'/>;
 }
 
 export default ContactTable;

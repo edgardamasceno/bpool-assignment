@@ -9,10 +9,10 @@ const Contact: React.FC = () => {
   return (
     <>
       <PageHeader
-        title="Lista de Contatos"
-        subTitle="Crie, edite e remova contatos de sua lista"
+        title='Lista de Contatos'
+        subTitle='Crie, edite e remova contatos de sua lista'
         extra={
-          <Button type="primary" icon={<PlusOutlined />} size="middle" onClick={() => {
+          <Button type='primary' icon={<PlusOutlined />} size='middle' onClick={() => {
             setStatus('new')
           }}>
             Adicionar Contato
