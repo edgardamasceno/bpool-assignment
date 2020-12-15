@@ -1,7 +1,7 @@
 # BPOOL Assignment
 <div style="text-align: right"><sub>by Edgar Damasceno</sub></div>
 
-[Descrição do desafio](./doc/teste.md)
+[Descrição do desafio](./docs/teste.md)
 
 > Este é um monorepo; back-end, front-end, scripts, configurações e tudo que for necessário para a execução e deploy da aplicação em um só lugar.
 
@@ -34,7 +34,7 @@ $ ./run-app-deploy.sh --dev
 
 ## API
 
-Para testar a API utilizei o software [Insomnia](https://insomnia.rest/download/); A configuração de rotas que utilizei pode ser acessada neste [link](./doc/insomnia_workspace).
+Para testar a API utilizei o software [Insomnia](https://insomnia.rest/download/); A configuração de rotas que utilizei pode ser acessada neste [link](./docs/insomnia_workspace).
 ### Endpoints
 
 - /api/contact, POST
@@ -69,7 +69,7 @@ Para testar a API utilizei o software [Insomnia](https://insomnia.rest/download/
 
 > O campo DATA deve ser superior a 01/01/1850.
 
-> O campo DATA deve ser igual ou inferior à data atual.
+> O campo DATA deve ser inferior à data atual.
 
 > O campo PROFISSÃO deve conter uma das opçoes: Médico, Professor ou Analista Sistemas.
 
@@ -85,22 +85,25 @@ Para testar a API utilizei o software [Insomnia](https://insomnia.rest/download/
 - [x] Containerizar ambiente de desenvolvimento
 - [x] Implementar front-end
 - [x] Implementar back-end
-- [ ] Integrar front-end e back-end
+- [x] Integrar front-end e back-end
 - [ ] Containerizar ambiente de produção
 
-## Caputuras de tela
+## Caputuras de Tela
 
 ### Lista de Contatos
-![main](doc/images/main.png "Tabela")
+![main](docs/images/main.png "Tabela")
 
 ### Adicionar Contato
-![add](doc/images/add.png "Adicionar")
+![add](docs/images/add.png "Adicionar")
 
 ### Editar Contato
-![edit](doc/images/edit.png "Editar")
+![edit](docs/images/edit.png "Editar")
 
 ### Visualizar Contato
-![view](doc/images/add.png "Visualizar")
+![view](docs/images/view.png "Visualizar")
+
+### Listagem de Erros na Validação
+![errorlist](docs/images/error-list.png "Validação")
 
 ### Remover Contato (confirmação)
-![delete](doc/images/delete.png "Remover")
+![delete](docs/images/delete.png "Remover")

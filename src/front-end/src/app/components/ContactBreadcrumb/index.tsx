@@ -1,19 +1,10 @@
 import React from 'react';
 import { Breadcrumb } from 'antd';
 import { useStatus } from '../../contexts/ContactContext';
-
-interface Dictionary<T> {
-  [Key: string]: T;
-}
+import { labels } from '../../helpers';
 
 const ContactBreadcrumb: React.FC = () => {
   const { status } = useStatus();
-  const labels: Dictionary<string> = {
-    new: "Adicionar",
-    edit: "Editar",
-    view: "Visualizar",
-    delete: "Remover"
-  }
 
   return (
     <Breadcrumb style={{ margin: '16px 0' }}>
