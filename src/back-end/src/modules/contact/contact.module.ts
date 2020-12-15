@@ -5,8 +5,10 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Contact, ContactSchema } from 'src/schemas/contact.schema';
 
 @Module({
-  imports:[MongooseModule.forFeature([{ name: Contact.name, schema: ContactSchema }])],
+  imports: [
+    MongooseModule.forFeature([{ name: Contact.name, schema: ContactSchema }]),
+  ],
   providers: [ContactService],
-  controllers: [ContactController]
+  controllers: [ContactController],
 })
 export class ContactModule {}
