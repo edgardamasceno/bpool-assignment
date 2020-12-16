@@ -1,0 +1,42 @@
+version: '3.7'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./docker/app/Dockerfile.prod
+    env_file:
+      - prod.env
+    volumes:
+      - './src/front-end/:/app'
+      - '/app/node_modules'
+    ports:
+      - '80:80'
+    depends_on:
+      - api
+    restart: always
+    stdin_open: true
+  api:
+    build:
+      context: .
+      dockerfile: ./docker/api/Dockerfile.prod
+    env_file:
+      - prod.env
+    volumes:
+      - './src/back-end/:/app'
+      - '/app/node_modules'
+    ports:
+      - '80'
+    depends_on:
+      - database
+    restart: always
+    stdin_open: true
+  database:
+    image: mongo:4.4.2-bionic
+    env_file: prod.env
+    volumes:
+      - ./data/prod/mongo:/data/db
+    ports:
+      - '27017'
+    restart: always
+    stdin_open: true
