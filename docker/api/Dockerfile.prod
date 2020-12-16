@@ -4,15 +4,14 @@ WORKDIR /app
 
 RUN apk add --no-cache python make g++;
 
-COPY src/back-end/package-lock.json src/api/package.json /app/
+COPY src/back-end/yarn.lock src/back-end/package.json /app/
 
 RUN yarn global add @nestjs/cli;
-
-RUN npm ci;
+RUN yarn install;
 
 COPY src/back-end /app
 
 RUN yarn build;
 
-EXPOSE 4000
+EXPOSE 80
 CMD ["node", "dist/main"]

@@ -1,8 +1,10 @@
 import { Dispatch, SetStateAction } from 'react';
 import { IContact } from '../interfaces';
 
+const API_BASEURL = process.env.REACT_APP_API_BASEURL || 'http://localhost/api/';
+
 export async function getContacts(): Promise<Array<IContact>> {
-  return fetch(`${process.env.REACT_APP_BASEURL}contact/`)
+  return fetch(`${API_BASEURL}contact/`)
     .then((response) => {
       return response.json();
     })
@@ -10,7 +12,7 @@ export async function getContacts(): Promise<Array<IContact>> {
 }
 
 export async function viewContact(id: string): Promise<IContact> {
-  return fetch(`${process.env.REACT_APP_BASEURL}contact/${id}`)
+  return fetch(`${API_BASEURL}contact/${id}`)
     .then((response) => {
       return response.json();
     })
@@ -22,7 +24,7 @@ export async function editContact(
   contact: IContact,
   errorHandler: Dispatch<SetStateAction<string[] | []>>
 ): Promise<IContact> {
-  return fetch(`${process.env.REACT_APP_BASEURL}contact/${id}`, {
+  return fetch(`${API_BASEURL}contact/${id}`, {
     method: 'PUT',
     body: JSON.stringify(contact),
     headers: {
@@ -58,7 +60,7 @@ export async function newContact(
     };
   }
 
-  return fetch(`${process.env.REACT_APP_BASEURL}contact/`, {
+  return fetch(`${API_BASEURL}contact/`, {
     method: 'POST',
     body: JSON.stringify(contact),
     headers: {
@@ -81,7 +83,7 @@ export async function newContact(
 }
 
 export async function deleteContact(id: string): Promise<IContact> {
-  return fetch(`${process.env.REACT_APP_BASEURL}contact/${id}`, {
+  return fetch(`${API_BASEURL}contact/${id}`, {
     method: 'DELETE',
   })
     .then((response) => {

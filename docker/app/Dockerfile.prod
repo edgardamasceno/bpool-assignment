@@ -8,6 +8,7 @@ RUN apk add --no-cache python make g++;
 COPY src/front-end/package.json /app/package.json
 COPY src/front-end/yarn.lock /app/yarn.lock
 
+RUN yarn global add react-scripts@4.0.1
 RUN yarn install;
 
 COPY src/front-end /app
@@ -15,12 +16,11 @@ COPY src/front-end /app
 RUN yarn build
 
 # production environment
-FROM nginx:1.19.5-alpine
+FROM nginx:1.19.6-alpine
 COPY --from=builder /app/build /usr/share/nginx/html
 
 RUN rm /etc/nginx/conf.d/default.conf
 COPY config/nginx/nginx.conf /etc/nginx/conf.d
 
 EXPOSE 80
-EXPOSE 443
 CMD ["nginx", "-g", "daemon off;"]
