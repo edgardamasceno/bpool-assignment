@@ -14,7 +14,7 @@ services:
       - '80:80'
     depends_on:
       - api
-    restart: always
+    restart: unless-stopped
     stdin_open: true
   api:
     build:
@@ -29,7 +29,7 @@ services:
       - '80'
     depends_on:
       - database
-    restart: always
+    restart: unless-stopped
     stdin_open: true
   database:
     image: mongo:4.4.2-bionic
@@ -38,5 +38,5 @@ services:
       - ./data/prod/mongo:/data/db
     ports:
       - '27017'
-    restart: always
+    restart: unless-stopped
     stdin_open: true
