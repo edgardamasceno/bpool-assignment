@@ -33,6 +33,7 @@ const ContactModal: React.FC = () => {
           setData(contacts);
           setStatus(null);
           setSelected(null);
+          setErrorList([]);
         });
       }
     });
@@ -46,6 +47,7 @@ const ContactModal: React.FC = () => {
             setData(contacts);
             setStatus(null);
             setSelected(null);
+            setErrorList([]);
           });
         }
       });
